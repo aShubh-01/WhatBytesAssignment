@@ -21,23 +21,23 @@ It allows users to **perform CRUD operations** on:
 
 ## Getting Started  
 
-### **1️ Clone the Repository**  
+### ** 1 Clone the Repository**  
 ```bash
 git clone aShubh-01/WhatBytesAssignment
 cd /WhatBytesAssignment
 ```
 
-### **2️ Install Dependencies & Build**  
-```bash
-npm run build
-```
-
-### **3️ Setup Environment Variables**  
+### ** 2 Setup Environment Variables**  
 Create a `.env` file in the root directory and add the following variables:  
 ```env
-DATABASE_URL=your_database_url make sure its a postgres database
+DATABASE_URL=your_database_url (make sure its a postgres database)
 JWT_SECRET=your_secret_key
 PORT=your_preferred_port
+
+```
+### **3 Install Dependencies & Build**  
+```bash
+npm run build
 ```
 
 ---
