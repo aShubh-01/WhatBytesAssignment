@@ -38,7 +38,7 @@ export const createTask = async (req: Request, res: Response) => {
 
 export const getTaskByFilter = async (req: Request, res: Response) => {
     const { status, userId } = req.query;
-    
+
     try {
         if(!status || !userId) {
             res.status(200).json({ message: 'Invalid query parameters' })
@@ -66,6 +66,7 @@ export const getTaskByFilter = async (req: Request, res: Response) => {
 
 export const getTasks = async (req: Request, res: Response) => {
     const projectId = req.params.projectId;
+    const { status } = req.query;
 
     try {
         const existingProject = await prisma.project.findFirst({     // CHECK IF PROJECT EXISTS
@@ -78,7 +79,10 @@ export const getTasks = async (req: Request, res: Response) => {
         }
 
         let allTasks = await prisma.task.findMany({         // FETCH TASKS IN THAT PROJECT
-            where: { projectId: Number(projectId )},
+            where: { 
+                projectId: Number(projectId),
+                status: (status as TaskStatus)
+            },
             select: { 
                 title: true, 
                 description: true, 
@@ -110,6 +114,7 @@ export const getTasks = async (req: Request, res: Response) => {
 
 export const updateTask = async (req: Request, res: Response) => {
     const taskId = req.params.id;
+    const userId = (req as any).userId;
 
     try {
         const validateData = optionalTaskDataSchema.safeParse(req.body);    // VALIDATE TASK DATA FOR UPDATE
@@ -125,6 +130,11 @@ export const updateTask = async (req: Request, res: Response) => {
 
         if(!existingTask) {
             res.status(401).json({ message: 'Task does not exist'});
+            return
+        }
+
+        if(existingTask.assignedUserId != userId) {
+            res.status(403).json({ message: 'Unauthorized access'});
             return
         }
 

@@ -38,6 +38,7 @@ export const createProject = async (req: Request, res: Response) => {
 
 export const updateProject = async (req: Request, res: Response) => {
     const projectId = req.params.id;
+    const userId = (req as any).userId;
 
     try {
         const validateData = optionalProjectDataSchema.safeParse(req.body); // VALIDATE PAYLOAD
@@ -55,6 +56,11 @@ export const updateProject = async (req: Request, res: Response) => {
 
         if(!existingProject) {
             res.status(400).json({ message: 'Project does not exist'});
+            return
+        }
+
+        if(existingProject.userId != userId) {
+            res.status(403).json({ message: 'Unauthorized access'});
             return
         }
 
