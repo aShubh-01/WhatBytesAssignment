@@ -35,7 +35,7 @@ JWT_SECRET=your_secret_key
 PORT=your_preferred_port
 
 ```
-### **3 Install Dependencies & Build**  
+### ** 3 Install Dependencies & Build**  
 ```bash
 npm run build
 ```
