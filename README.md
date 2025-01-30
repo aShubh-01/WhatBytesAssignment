@@ -1,7 +1,5 @@
-Here's a **README.md** file for your project:  
 
 ---
-
 # Project Management Backend API  
 
 This is a **Project Management Backend API**, built using **Express.js** and **PostgreSQL**, as an assignment for **WhatBytes**.  

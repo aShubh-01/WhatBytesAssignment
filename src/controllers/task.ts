@@ -133,6 +133,8 @@ export const updateTask = async (req: Request, res: Response) => {
             return
         }
 
+        console.log(userId, existingTask);
+        
         if(existingTask.assignedUserId != userId) {
             res.status(403).json({ message: 'Unauthorized access'});
             return
